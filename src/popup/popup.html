@@ -8,10 +8,10 @@
 </head>
 <body>
 <header>
-  <svg viewBox="0 0 24 24" class="logo" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 8.8-8 11-4.5-2.2-8-6-8-11V5l8-3z" fill="#2dd4bf"/><path d="M8.5 12.2l2.4 2.4 4.6-5" stroke="#0d1526" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <img src="../../assets/logo.png" class="logo" alt="Truth Layer logo">
   <div>
     <h1>Truth Layer</h1>
-    <p class="sub">On-device link safety · nothing leaves your browser</p>
+    <p class="sub">On-device link safety · nothing leaves your browser · Created by devuvo</p>
   </div>
 </header>
 
@@ -22,6 +22,14 @@
     <button id="checkBtn" class="primary">Check</button>
   </div>
   <button id="scanPageBtn" class="ghost">Scan links on this page</button>
+  <button id="scanMediaBtn" class="ghost">Scan page media</button>
+
+  <section id="mediaResult" class="hidden" aria-live="polite">
+    <h2>Page media</h2>
+    <p id="mediaSummary"></p>
+    <ul id="mediaList"></ul>
+    <p class="fineprint">Video analysis captures the current frame as a still image — metadata and AI-tag checks only.</p>
+  </section>
 
   <section id="result" class="hidden" aria-live="polite">
     <div class="verdict-head">
@@ -51,6 +59,9 @@
 
 <script src="../lib/domain-lists.js"></script>
 <script src="../lib/url-heuristics.js"></script>
+<script src="../lib/media-utils.js"></script>
+<script src="../lib/metadata.js"></script>
+<script src="../lib/c2pa.js"></script>
 <script src="popup.js"></script>
 </body>
 </html>

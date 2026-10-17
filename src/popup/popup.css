@@ -26,6 +26,7 @@ header {
   border-bottom: 1px solid var(--border);
 }
 .logo { width: 30px; height: 30px; flex: none; }
+img.logo { border-radius: 7px; }
 h1 { font-size: 16px; margin: 0; }
 .sub { margin: 0; font-size: 11.5px; color: var(--muted); }
 main { padding: 12px 16px 16px; }
@@ -95,6 +96,48 @@ button.ghost:hover { border-color: var(--accent); }
 .fineprint { font-size: 11px; color: var(--muted); margin: 10px 0 0; }
 h2 { font-size: 13px; margin: 0 0 4px; }
 #pageSummary { font-size: 12.5px; color: var(--muted); margin: 0 0 4px; }
+#mediaResult {
+  margin-top: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px;
+}
+#mediaSummary { font-size: 12.5px; color: var(--muted); margin: 0 0 4px; }
+#mediaList { margin: 8px 0 0; padding: 0; list-style: none; }
+.media-row { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--border); }
+.media-row:first-child { border-top: none; padding-top: 0; }
+.mi-icon { width: 26px; height: 26px; flex: none; color: var(--accent); margin-top: 2px; }
+.mi-meta { flex: 1; min-width: 0; }
+.mi-title { font-weight: 700; font-size: 12.5px; display: flex; align-items: center; gap: 6px; }
+.mi-host { font-size: 11.5px; color: var(--muted); word-break: break-all; }
+.mi-analyze {
+  flex: none;
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.mi-analyze:hover:not(:disabled) { border-color: var(--accent); }
+.mi-analyze:disabled { opacity: .5; cursor: default; }
+.play-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #06281f;
+  background: var(--accent);
+  border-radius: 4px;
+  padding: 1px 6px;
+  letter-spacing: .04em;
+}
+.mi-verdict { margin-top: 6px; font-size: 12px; }
+.mi-verdict p { margin: 3px 0; }
+.mi-verdict .ok { color: var(--safe); }
+.mi-verdict .warn { color: var(--caution); }
+.mi-verdict .hit { color: var(--suspicious); }
+.mi-verdict .muted { color: var(--muted); }
+.mi-note { color: var(--caution); font-size: 12px; margin: 6px 0 0; }
 .settings { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 8px; }
 .settings summary { cursor: pointer; font-size: 12.5px; color: var(--muted); }
 .toggle { display: flex; gap: 8px; align-items: center; font-size: 13px; margin-top: 8px; cursor: pointer; }

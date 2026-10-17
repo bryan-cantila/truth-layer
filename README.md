@@ -2,10 +2,13 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/manifest-v3-blue.svg)](manifest.json)
-[![Tests](https://img.shields.io/badge/tests-17%20passing-green.svg)](tests/run.js)
+[![Tests](https://img.shields.io/badge/tests-25%20passing-green.svg)](tests/run.js)
 [![No backend](https://img.shields.io/badge/backend-none-lightgrey.svg)](src/)
 
 ![Truth Layer popup](docs/popup.png)
+![Truth Layer media analyzer](docs/analyzer.png)
+
+*Created by devuvo*
 
 A browser extension that protects you from phishing links and synthetic media — running 100% on-device. No URL, image, or page content ever leaves your browser. There is no backend, no analytics, no remote config.
 
@@ -14,6 +17,7 @@ A browser extension that protects you from phishing links and synthetic media �
 - **Link safety verdicts** — score any URL 0–100 with plain-language reasons (punycode disguise, typosquatting, brand-as-subdomain tricks, IP hosts, URL shorteners, high-risk TLDs, credential-redirect `@` tricks, missing HTTPS). Bands: Looks safe / Caution / Suspicious / Dangerous.
 - **On-page link badging** — risky links get a warning badge with a hover tooltip explaining why.
 - **Right-click tools** — "Check link safety" on any link; "Analyze image" and "Check video provenance" on any media.
+- **Scan page media** — one click lists the videos and photos on the current tab (playing videos flagged); capture a video's current frame and analyze it as a still image, or analyze any on-page photo inline.
 - **Media analyzer panel** — reads embedded C2PA provenance manifests (issuing tool, dates) when present, scans EXIF/PNG metadata for AI-generator tags, and links out to reverse-image search. States its limits up front: AI detection without provenance is probabilistic, and "no signs found" is never presented as "authentic."
 
 ## Install (developer mode)

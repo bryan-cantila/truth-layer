@@ -134,5 +134,62 @@ t('levenshtein sanity', () => {
   assert.strictEqual(H.levenshtein('kitten', 'sitting'), 3);
 });
 
+console.log('media-utils tests');
+const MU = require('../src/lib/media-utils');
+
+t('absolutize resolves relative URLs against the base', () => {
+  assert.strictEqual(MU.absolutize('/img/a.jpg', 'https://example.com/p/'), 'https://example.com/img/a.jpg');
+  assert.strictEqual(MU.absolutize('https://cdn.x/y.png', 'https://example.com/'), 'https://cdn.x/y.png');
+  assert.strictEqual(MU.absolutize('a/b.jpg', 'https://example.com/p/q.html'), 'https://example.com/p/a/b.jpg');
+});
+
+t('absolutize returns empty string for invalid URLs', () => {
+  assert.strictEqual(MU.absolutize('http://exa mple.com/x', 'https://example.com/'), '');
+  assert.strictEqual(MU.absolutize('', 'not a base'), '');
+});
+
+t('rectInViewport detects overlap with the viewport', () => {
+  assert.strictEqual(MU.rectInViewport({ top: 10, bottom: 100, left: 10, right: 100 }, 800, 600), true);
+  assert.strictEqual(MU.rectInViewport({ top: -50, bottom: 10, left: 10, right: 100 }, 800, 600), true); // partial
+  assert.strictEqual(MU.rectInViewport({ top: 700, bottom: 900, left: 10, right: 100 }, 800, 600), false); // below
+  assert.strictEqual(MU.rectInViewport({ top: 10, bottom: 100, left: 900, right: 1100 }, 800, 600), false); // right
+  assert.strictEqual(MU.rectInViewport(null, 800, 600), false);
+});
+
+t('shortHost extracts the hostname, safely', () => {
+  assert.strictEqual(MU.shortHost('https://sub.example.com/x.jpg'), 'sub.example.com');
+  assert.strictEqual(MU.shortHost('notaurl'), '(unknown host)');
+});
+
+t('dimsText formats dimensions or reports unknown', () => {
+  assert.strictEqual(MU.dimsText(1280, 720), '1280×720');
+  assert.strictEqual(MU.dimsText(0, 0), 'size unknown');
+  assert.strictEqual(MU.dimsText(undefined, 100), 'size unknown');
+});
+
+t('summarizeAnalysis reports C2PA presence and generator hint', () => {
+  const lines = MU.summarizeAnalysis(
+    { aiIndicators: [] },
+    { present: true, detail: 'manifest v1', generator: 'Adobe Photoshop' }
+  );
+  assert.strictEqual(lines[0].cls, 'ok');
+  assert.ok(lines[0].text.includes('C2PA manifest found'));
+  assert.ok(lines.some(l => l.text.includes('Adobe Photoshop')));
+});
+
+t('summarizeAnalysis is honest when nothing is found', () => {
+  const lines = MU.summarizeAnalysis({ aiIndicators: [] }, { present: false });
+  assert.ok(lines.some(l => l.cls === 'warn' && l.text.includes('No provenance manifest')));
+  assert.ok(lines.some(l => l.cls === 'muted' && l.text.includes('Not proof of authenticity')));
+});
+
+t('summarizeAnalysis surfaces AI-generator tags', () => {
+  const lines = MU.summarizeAnalysis(
+    { aiIndicators: [{ field: 'EXIF', match: 'midjourney', value: 'Midjourney v6' }] },
+    { present: false }
+  );
+  assert.ok(lines.some(l => l.cls === 'hit' && l.text.includes('midjourney') && l.text.includes('EXIF')));
+});
+
 console.log('\n' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

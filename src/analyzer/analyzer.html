@@ -8,10 +8,10 @@
 </head>
 <body>
 <header>
-  <svg viewBox="0 0 24 24" class="logo" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 8.8-8 11-4.5-2.2-8-6-8-11V5l8-3z" fill="#2dd4bf"/><path d="M8.5 12.2l2.4 2.4 4.6-5" stroke="#0d1526" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <img src="../../assets/logo.png" class="logo" alt="Truth Layer logo">
   <div>
     <h1>Truth Layer — Media Analyzer</h1>
-    <p class="sub">Everything below runs on your device. The file is never uploaded anywhere.</p>
+    <p class="sub">Everything below runs on your device. The file is never uploaded anywhere. Created by devuvo.</p>
   </div>
 </header>
 
@@ -39,6 +39,7 @@
   <section class="card hidden" id="resultsCard">
     <h2>Findings</h2>
     <div id="statusLine" class="status">Analyzing…</div>
+    <p id="frameNote" class="hidden frame-note">Analyzing the current frame as a still image. Frame-level checks find metadata and AI-generator tags; true video-deepfake detection is beyond on-device heuristics.</p>
 
     <h3>C2PA provenance</h3>
     <div id="c2paBox" class="finding"></div>
@@ -52,11 +53,13 @@
     <h3>Heuristic notes</h3>
     <ul id="notesList" class="notes"></ul>
 
-    <h3>Check elsewhere</h3>
-    <p class="muted">Reverse-image search can reveal where else this file appears:</p>
-    <div class="row links">
-      <a id="lensLink" href="#" target="_blank" rel="noopener">Google Lens</a>
-      <a id="tineyeLink" href="#" target="_blank" rel="noopener">TinEye</a>
+    <div id="checkElsewhere">
+      <h3>Check elsewhere</h3>
+      <p class="muted">Reverse-image search can reveal where else this file appears:</p>
+      <div class="row links">
+        <a id="lensLink" href="#" target="_blank" rel="noopener">Google Lens</a>
+        <a id="tineyeLink" href="#" target="_blank" rel="noopener">TinEye</a>
+      </div>
     </div>
   </section>
 </main>

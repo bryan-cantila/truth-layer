@@ -177,6 +177,24 @@
     });
   }
 
+  function analyzeFrame(dataUrl) {
+    $('previewVideo').classList.add('hidden');
+    var prev = $('preview');
+    prev.classList.remove('hidden');
+    prev.src = dataUrl;
+    $('frameNote').classList.remove('hidden');
+    $('checkElsewhere').classList.add('hidden'); // reverse search needs a URL
+    fetch(dataUrl).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.arrayBuffer();
+    }).then(function (buf) {
+      analyzeBuffer(buf, 'Video frame capture');
+    }).catch(function (e) {
+      $('resultsCard').classList.remove('hidden');
+      setStatus('Could not read the captured frame (' + e.message + ').', '#fca5a5');
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     $('fileInput').addEventListener('change', function (e) {
       var f = e.target.files && e.target.files[0];
@@ -195,10 +213,25 @@
     });
 
     var m = /[?&]src=([^&]+)/.exec(location.search);
-    if (m) {
-      loadFromUrl(decodeURIComponent(m[1]));
-    } else {
-      $('sourceInfo').textContent = 'Pick a file to analyze, or open this page from the right-click menu on an image or video.';
+    // A frame captured from the video the user was watching (stored by the popup).
+    try {
+      chrome.storage.session.get('tl_pending_image', function (res) {
+        if (res && res.tl_pending_image) {
+          chrome.storage.session.remove('tl_pending_image');
+          analyzeFrame(res.tl_pending_image);
+        } else if (m) {
+          loadFromUrl(decodeURIComponent(m[1]));
+        } else {
+          $('sourceInfo').textContent = 'Pick a file to analyze, or open this page from the right-click menu on an image or video.';
+        }
+      });
+    } catch (e) {
+      // Session storage unavailable: fall back to the previous behavior.
+      if (m) {
+        loadFromUrl(decodeURIComponent(m[1]));
+      } else {
+        $('sourceInfo').textContent = 'Pick a file to analyze, or open this page from the right-click menu on an image or video.';
+      }
     }
   });
 })();
