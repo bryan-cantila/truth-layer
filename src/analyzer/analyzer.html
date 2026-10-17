@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Truth Layer — Media Analyzer</title>
+<link rel="stylesheet" href="analyzer.css">
+</head>
+<body>
+<header>
+  <svg viewBox="0 0 24 24" class="logo" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 8.8-8 11-4.5-2.2-8-6-8-11V5l8-3z" fill="#2dd4bf"/><path d="M8.5 12.2l2.4 2.4 4.6-5" stroke="#0d1526" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div>
+    <h1>Truth Layer — Media Analyzer</h1>
+    <p class="sub">Everything below runs on your device. The file is never uploaded anywhere.</p>
+  </div>
+</header>
+
+<main>
+  <section class="limits" aria-label="Analysis limits">
+    <strong>Read this first.</strong>
+    AI detection without provenance is <em>probabilistic</em>: these checks look for
+    known fingerprints, not proof. "No signs found" is <em>never</em> the same as "authentic".
+    A missing C2PA manifest is normal — most images online carry none.
+  </section>
+
+  <section class="card" id="sourceCard">
+    <h2>Source</h2>
+    <div id="sourceInfo" class="muted">Loading…</div>
+    <div class="row">
+      <img id="preview" class="hidden" alt="Image under analysis">
+      <video id="previewVideo" class="hidden" controls muted playsinline alt="Video under analysis"></video>
+    </div>
+    <label class="upload">Or analyze a saved file:
+      <input type="file" id="fileInput" accept="image/*,video/*">
+    </label>
+    <p class="muted small">Tip: some sites block cross-origin reads. If the remote file cannot be fetched, save it and use the file picker — analysis stays local either way.</p>
+  </section>
+
+  <section class="card hidden" id="resultsCard">
+    <h2>Findings</h2>
+    <div id="statusLine" class="status">Analyzing…</div>
+
+    <h3>C2PA provenance</h3>
+    <div id="c2paBox" class="finding"></div>
+
+    <h3>Metadata</h3>
+    <div id="metaBox" class="finding"></div>
+
+    <h3>AI-generator fingerprints</h3>
+    <div id="aiBox" class="finding"></div>
+
+    <h3>Heuristic notes</h3>
+    <ul id="notesList" class="notes"></ul>
+
+    <h3>Check elsewhere</h3>
+    <p class="muted">Reverse-image search can reveal where else this file appears:</p>
+    <div class="row links">
+      <a id="lensLink" href="#" target="_blank" rel="noopener">Google Lens</a>
+      <a id="tineyeLink" href="#" target="_blank" rel="noopener">TinEye</a>
+    </div>
+  </section>
+</main>
+
+<script src="../lib/domain-lists.js"></script>
+<script src="../lib/metadata.js"></script>
+<script src="../lib/c2pa.js"></script>
+<script src="analyzer.js"></script>
+</body>
+</html>

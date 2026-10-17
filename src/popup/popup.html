@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Truth Layer</title>
+<link rel="stylesheet" href="popup.css">
+</head>
+<body>
+<header>
+  <svg viewBox="0 0 24 24" class="logo" aria-hidden="true"><path d="M12 2l8 3v6c0 5-3.5 8.8-8 11-4.5-2.2-8-6-8-11V5l8-3z" fill="#2dd4bf"/><path d="M8.5 12.2l2.4 2.4 4.6-5" stroke="#0d1526" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <div>
+    <h1>Truth Layer</h1>
+    <p class="sub">On-device link safety · nothing leaves your browser</p>
+  </div>
+</header>
+
+<main>
+  <label class="field-label" for="urlInput">Check a link</label>
+  <div class="row">
+    <input id="urlInput" type="url" placeholder="https://example.com/..." spellcheck="false" autocomplete="off">
+    <button id="checkBtn" class="primary">Check</button>
+  </div>
+  <button id="scanPageBtn" class="ghost">Scan links on this page</button>
+
+  <section id="result" class="hidden" aria-live="polite">
+    <div class="verdict-head">
+      <span id="scoreBadge" class="score-badge">–</span>
+      <div>
+        <div id="bandLabel" class="band-label"></div>
+        <div id="resultUrl" class="result-url"></div>
+      </div>
+    </div>
+    <div class="scorebar"><div id="scoreFill"></div></div>
+    <ul id="reasonList"></ul>
+    <p class="fineprint">Heuristic check of the address only. A clean score does not guarantee the page is legitimate.</p>
+  </section>
+
+  <section id="pageResult" class="hidden" aria-live="polite">
+    <h2>Page scan</h2>
+    <p id="pageSummary"></p>
+    <ul id="pageRiskList"></ul>
+  </section>
+
+  <details class="settings">
+    <summary>Settings</summary>
+    <label class="toggle"><input type="checkbox" id="badgingToggle" checked> <span>Badge risky links on pages</span></label>
+    <p class="fineprint">Truth Layer performs zero network requests of its own and stores nothing remotely. Toggles are kept in this browser only.</p>
+  </details>
+</main>
+
+<script src="../lib/domain-lists.js"></script>
+<script src="../lib/url-heuristics.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
