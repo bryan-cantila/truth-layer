@@ -1,6 +1,6 @@
 # Truth Layer
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![License: devuvo Community](https://img.shields.io/badge/license-devuvo_Community-blue.svg)](LICENSE)
 [![Manifest V3](https://img.shields.io/badge/manifest-v3-blue.svg)](manifest.json)
 [![Tests](https://img.shields.io/badge/tests-25%20passing-green.svg)](tests/run.js)
 [![No backend](https://img.shields.io/badge/backend-none-lightgrey.svg)](src/)
@@ -57,4 +57,4 @@ Heuristics catch bulk phishing, not targeted spear-phishing — a clean score is
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+**Free to use — just credit devuvo.** Personal, educational, and non-commercial use is free, provided you give visible credit (e.g. "Created by devuvo" with a link to https://www.devuvo.com). Using it for business or income-generating purposes? Notify devuvo first at admin@devuvo.com. See [LICENSE](LICENSE) for the full terms.
